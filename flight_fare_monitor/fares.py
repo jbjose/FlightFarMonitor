@@ -1,3 +1,4 @@
+import ConfigParser
 import argparse
 import datetime as dt
 import json
@@ -7,8 +8,9 @@ from itertools import chain
 
 import pandas as pd
 
-url = "master_branch_again"
-
+config = ConfigParser.ConfigParser()
+config.read(os.path.join(os.path.dirname(__file__), 'config.cfg'))
+url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key={0}".format(config.get('Google API', 'key'))
 
 def get_dates(start_date=None):
     start_date = dt.date.today() if not start_date else start_date
